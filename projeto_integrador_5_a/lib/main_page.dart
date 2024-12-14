@@ -43,6 +43,7 @@ class _MainPageState extends State<MainPage> {
 
   void _deleteById(int id) async {
     await TBContato.delete(id);
+    if (!mounted) return;
     ScaffoldMessenger
       .of(context)
       .showSnackBar(
@@ -78,7 +79,7 @@ class _MainPageState extends State<MainPage> {
           children: [
             TextField(
               controller: _nomeController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Nome",
                 prefixIcon: Icon(Icons.abc)
@@ -88,9 +89,9 @@ class _MainPageState extends State<MainPage> {
             TextField(
               controller: _telefoneController,
               keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Celular',
-                border: const OutlineInputBorder(),
+                border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.smartphone)
               ),
               inputFormatters: [
@@ -100,7 +101,7 @@ class _MainPageState extends State<MainPage> {
             const SizedBox(height: 10),
             TextField(
               controller: _emailController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "Email",
                 prefixIcon: Icon(Icons.email)
@@ -111,7 +112,7 @@ class _MainPageState extends State<MainPage> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (id != null) {
-                    await _update(id!);
+                    await _update(id);
                   } else {
                     await _insert();
                   }
@@ -119,10 +120,12 @@ class _MainPageState extends State<MainPage> {
                   _nomeController.text = '';
                   _telefoneController.text = '';
                   _emailController.text = '';
+
+                  if (!mounted) return;
                   Navigator.of(context).pop();
                 }, 
                 child: Padding(
-                  padding: EdgeInsets.all(18),
+                  padding: const EdgeInsets.all(18),
                   child: Text(
                     id == null ? "Incluir contato"  : "Alterar contato",
                     style: const TextStyle(
@@ -145,15 +148,15 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFECEAF4),
+      backgroundColor: const Color(0xFFECEAF4),
       appBar: AppBar(
-        title: Text("Projeto Integrador V-B"),
+        title: const Text("Projeto Integrador V-B"),
       ),
       body: _contatosList.isEmpty
       ? Container(
         width: double.infinity,
         height: double.infinity,
-        child: Column(
+        child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -165,13 +168,13 @@ class _MainPageState extends State<MainPage> {
       : ListView.builder(
         itemCount: _contatosList.length,
         itemBuilder: (context, index) => Card(
-          margin: EdgeInsets.all(15),
+          margin: const EdgeInsets.all(15),
           child: ListTile(
             title: Padding(
-              padding: EdgeInsets.symmetric(vertical: 5),
+              padding: const EdgeInsets.symmetric(vertical: 5),
               child: Text(
                 "${index+1}# ${_contatosList[index]['nome']}",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18
                 ),
               ),
@@ -186,7 +189,7 @@ class _MainPageState extends State<MainPage> {
                   onPressed: () {
                     mostraFormularioRodape(_contatosList[index]['id']);
                   }, 
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.edit,
                     color: Colors.indigoAccent,
                   )
@@ -195,7 +198,7 @@ class _MainPageState extends State<MainPage> {
                   onPressed: () {
                     _deleteById(_contatosList[index]['id']);
                   }, 
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.delete,
                     color: Colors.redAccent,
                   )
@@ -207,7 +210,7 @@ class _MainPageState extends State<MainPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => mostraFormularioRodape(null),
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ), 
     );
   }  

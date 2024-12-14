@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:projeto_integrador_5_a/main_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
