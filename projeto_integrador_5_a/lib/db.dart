@@ -59,7 +59,7 @@ class TBContato {
     return db.update('contato', data, where: 'id = ?', whereArgs: [id]);
   }
 
-  static Future<void> deleteContato(int id) async {
+  static Future<void> delete(int id) async {
     final db = await TBContato.conexao();
 
     try {
